@@ -1,3 +1,4 @@
+#pragma region MAIN
 #include <iostream>
 #include <fstream>
 #include <memory>
@@ -8,6 +9,8 @@
 #include <stdexcept>
 #include <stack>
 #include <queue>
+
+#pragma region LinkedList
 
 struct Node {
     int data;
@@ -151,7 +154,6 @@ public:
         }
     }
 
-    // Function to clear the list
     void clear() {
         std::thread t([&] {
             std::lock_guard<std::mutex> lock(mtx);
@@ -249,6 +251,9 @@ public:
     }
 
 };
+
+#pragma endregion
+#pragma endregion
 
 int main() {
     LinkedList list;

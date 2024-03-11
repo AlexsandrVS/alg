@@ -67,3 +67,16 @@
 [Mon Mar 11 15:45:25 2024 ] Thread ID: 140737347847872      | Command: List cleared                        | Status: Success             
 [Mon Mar 11 15:45:27 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
 === END session - (Mon Mar 11 15:45:27 2024) ===
+=== SRT session - (Mon Mar 11 17:33:52 2024) ===
+[Mon Mar 11 17:33:52 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
+[Mon Mar 11 17:33:56 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
+=== END session - (Mon Mar 11 17:33:56 2024) ===
+=== SRT session - (Mon Mar 11 17:36:10 2024) ===
+[Mon Mar 11 17:36:10 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
+[Mon Mar 11 17:36:15 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
+[Mon Mar 11 17:36:16 2024 ] Thread ID: 140737337362112      | Command: List cleared                        | Status: Success             
+[Mon Mar 11 17:36:17 2024 ] Thread ID: 140737337362112      | Command: Rm from end failed: List is empty   | Status: Failure             
+[Mon Mar 11 17:36:18 2024 ] Thread ID: 140737347847872      | Command: Rm from stp failed: List is empty   | Status: Failure             
+[Mon Mar 11 17:36:21 2024 ] Thread ID: 140737347847872      | Command: Print list with stack               | Status: Success             
+[Mon Mar 11 17:36:22 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
+=== END session - (Mon Mar 11 17:36:22 2024) ===

@@ -20,12 +20,13 @@
 void generateSequence(std::vector<int>& sequence, int length) {
     srand(time(NULL));
     for (int i = 0; i < length - 1; ++i) {
-        int num = rand() % 100;  // Генерация чисел в диапазоне от 0 до 99
+        int num = rand() % 101;  // Генерация чисел в диапазоне от 0 до 100
         sequence.push_back(num);
         std::cout << num << std::endl;
     }
     std::cout << "0" << std::endl;  // Завершающий 0
 }
+
 
 int findMax(const std::vector<int>& sequence, int index) {
     if (index == sequence.size()) {
@@ -37,10 +38,10 @@ int findMax(const std::vector<int>& sequence, int index) {
     }
 }
 
+
 int main() {
     std::cout << "Enter the length of the sequence of natural numbers (ending with zero): ";
-    int length;
-    std::cin >> length;
+    int length; std::cin >> length;
 
     std::vector<int> sequence;
     generateSequence(sequence, length);

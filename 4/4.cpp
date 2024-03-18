@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <cmath>
 
 class Matrix {
 public:
@@ -59,31 +60,44 @@ public:
 
     // Метод сортировки выбором
     Matrix selectionSort() const {
+        // Создаем копию текущей матрицы
         Matrix sortedMatrix(*this);
 
+        // Для каждого столбца матрицы
         for (int j = 0; j < sortedMatrix.cols; ++j) {
-            if (j % 2 == 0) { // Четные столбцы: сортировка по убыванию
+            // Если столбец четный, сортируем по убыванию
+            if (j % 2 == 0) {
+                // Проходим по всем строкам столбца, кроме последней
                 for (int i = 0; i < sortedMatrix.rows - 1; ++i) {
+                    // Ищем индекс максимального элемента в столбце
                     int max_index = i;
+                    // Проходим по оставшимся строкам для поиска максимума
                     for (int k = i + 1; k < sortedMatrix.rows; ++k) {
+                        // Если текущий элемент больше максимума, обновляем индекс максимума
                         if (sortedMatrix.data[k][j] > sortedMatrix.data[max_index][j]) {
                             max_index = k;
                         }
                     }
+                    // Обмениваем местами элементы, если нужно
                     if (max_index != i) {
                         int temp = sortedMatrix.data[i][j];
                         sortedMatrix.data[i][j] = sortedMatrix.data[max_index][j];
                         sortedMatrix.data[max_index][j] = temp;
                     }
                 }
-            } else { // Нечетные столбцы: сортировка по возрастанию
+            } else { // Если столбец нечетный, сортируем по возрастанию
+                // Проходим по всем строкам столбца, кроме последней
                 for (int i = 0; i < sortedMatrix.rows - 1; ++i) {
+                    // Ищем индекс минимального элемента в столбце
                     int min_index = i;
+                    // Проходим по оставшимся строкам для поиска минимума
                     for (int k = i + 1; k < sortedMatrix.rows; ++k) {
+                        // Если текущий элемент меньше минимума, обновляем индекс минимума
                         if (sortedMatrix.data[k][j] < sortedMatrix.data[min_index][j]) {
                             min_index = k;
                         }
                     }
+                    // Обмениваем местами элементы, если нужно
                     if (min_index != i) {
                         int temp = sortedMatrix.data[i][j];
                         sortedMatrix.data[i][j] = sortedMatrix.data[min_index][j];
@@ -92,18 +106,77 @@ public:
                 }
             }
         }
+        // Возвращаем отсортированную матрицу
         return sortedMatrix;
     }
 
     // Метод сортировки LSD Radix
     Matrix lsdRadixSort() const {
+        // Создаем копию текущей матрицы для сортировки
+        Matrix sortedMatrix(*this);
+
+        // Реализуем сортировку LSD Radix Sort для каждого столбца
+        for (int j = 0; j < sortedMatrix.cols; ++j) {
+            // Подготавливаем корзины для каждой цифры
+            std::vector<std::vector<int>> buckets(10);
+
+            // Находим максимальное число разрядов в столбце
+            int maxDigits = 1;
+            for (int i = 0; i < sortedMatrix.rows; ++i) {
+                int num = sortedMatrix.data[i][j];
+                int digits = 1 + static_cast<int>(log10(abs(num)));
+                maxDigits = std::max(maxDigits, digits);
+            }
+
+            // Сортировка по каждому разряду
+            for (int digit = 0; digit < maxDigits; ++digit) {
+                // Распределение чисел по корзинам
+                for (int i = 0; i < sortedMatrix.rows; ++i) {
+                    int num = sortedMatrix.data[i][j];
+                    int digitValue = (abs(num) / static_cast<int>(pow(10, digit))) % 10;
+                    buckets[digitValue].push_back(num);
+                }
+
+                // Сборка чисел обратно в матрицу
+                int row = 0;
+                if (j % 2 == 0) { // Четный столбец: сортировка по убыванию
+                    for (int k = 9; k >= 0; --k) {
+                        for (int num : buckets[k]) {
+                            sortedMatrix.data[row++][j] = num;
+                        }
+                    }
+                } else { // Нечетный столбец: сортировка по возрастанию
+                    for (int k = 0; k < 10; ++k) {
+                        for (int num : buckets[k]) {
+                            sortedMatrix.data[row++][j] = num;
+                        }
+                    }
+                }
+
+                // Очистка корзин перед следующей итерацией
+                for (auto& bucket : buckets) {
+                    bucket.clear();
+                }
+            }
+        }
+
+        // Возвращаем отсортированную матрицу
+        return sortedMatrix;
+    }
+
+    // Метод сортировки четных и нечетных столбцов матрицы с использованием пузырьковой сортировки
+    Matrix bubbleSort() const {
+        // Создаем копию текущей матрицы для сортировки
         Matrix sortedMatrix(*this);
 
         // Для каждого столбца матрицы
         for (int j = 0; j < sortedMatrix.cols; ++j) {
-            if (j % 2 == 0) { // Четные столбцы: сортировка по убыванию
+            // Если индекс столбца четный, сортируем по убыванию
+            if (j % 2 == 0) {
+                // Сортировка по убыванию с помощью алгоритма сортировки пузырьком
                 for (int i = 0; i < sortedMatrix.rows - 1; ++i) {
                     for (int k = 0; k < sortedMatrix.rows - i - 1; ++k) {
+                        // Сравниваем элементы и меняем местами, если необходимо
                         if (sortedMatrix.data[k][j] < sortedMatrix.data[k + 1][j]) {
                             // Обмен значениями
                             int temp = sortedMatrix.data[k][j];
@@ -112,9 +185,11 @@ public:
                         }
                     }
                 }
-            } else { // Нечетные столбцы: сортировка по возрастанию
+            } else { // Если индекс столбца нечетный, сортируем по возрастанию
+                // Сортировка по возрастанию с помощью алгоритма сортировки пузырьком
                 for (int i = 0; i < sortedMatrix.rows - 1; ++i) {
                     for (int k = 0; k < sortedMatrix.rows - i - 1; ++k) {
+                        // Сравниваем элементы и меняем местами, если необходимо
                         if (sortedMatrix.data[k][j] > sortedMatrix.data[k + 1][j]) {
                             // Обмен значениями
                             int temp = sortedMatrix.data[k][j];
@@ -126,35 +201,44 @@ public:
             }
         }
 
+        // Возвращаем отсортированную матрицу
         return sortedMatrix;
     }
 
     // Метод сортировки подсчетом
     Matrix countingSort() const {
+        // Создаем копию текущей матрицы
         Matrix sortedMatrix(*this);
 
+        // Для каждого столбца матрицы
         for (int j = 0; j < sortedMatrix.cols; ++j) {
-            // Создаем временный вектор для сортировки
+            // Создаем временный вектор для сортировки. Размер вектора 201 для того, чтобы учесть отрицательные значения.
             std::vector<int> count(201, 0);
 
-            // Считаем количество элементов каждого значения
+            // Считаем количество элементов каждого значения в столбце
             for (int i = 0; i < sortedMatrix.rows; ++i) {
+                // Увеличиваем счетчик элементов с соответствующим значением
                 count[sortedMatrix.data[i][j] + 100]++;
             }
 
-            // Переписываем значения в исходный вектор
+            // Переписываем значения в исходный вектор, используя счетчики
             int index = 0;
-            if (j % 2 == 0) { // Четные столбцы: сортировка по убыванию
+            // Если столбец четный, сортируем по убыванию
+            if (j % 2 == 0) {
+                // Обратный проход по счетчикам для установки значений в убывающем порядке
                 for (int i = 200; i >= 0; --i) {
                     while (count[i] > 0) {
+                        // Устанавливаем значение в ячейку и уменьшаем счетчик
                         sortedMatrix.data[index][j] = i - 100;
                         ++index;
                         --count[i];
                     }
                 }
-            } else { // Нечетные столбцы: сортировка по возрастанию
+            } else { // Если столбец нечетный, сортируем по возрастанию
+                // Прямой проход по счетчикам для установки значений в возрастающем порядке
                 for (int i = 0; i <= 200; ++i) {
                     while (count[i] > 0) {
+                        // Устанавливаем значение в ячейку и уменьшаем счетчик
                         sortedMatrix.data[index][j] = i - 100;
                         ++index;
                         --count[i];
@@ -163,8 +247,10 @@ public:
             }
         }
 
+        // Возвращаем отсортированную матрицу
         return sortedMatrix;
     }
+
 };
 
 int main() {
@@ -186,8 +272,6 @@ int main() {
     Matrix sortedLSDMatrix = copiedMatrix.lsdRadixSort();
         auto end1 = std::chrono::high_resolution_clock::now(); 
         auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(end1 - start1); 
-
-    // Вывод отсортированной копии матрицы на экран
     sortedLSDMatrix.printMatrix();
 
 
@@ -199,8 +283,6 @@ int main() {
     Matrix sortedSelectionMatrix = copiedMatrix.selectionSort();
         auto end2 = std::chrono::high_resolution_clock::now(); 
         auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(end2 - start2); 
-
-    // Вывод отсортированной копии матрицы на экран
     sortedSelectionMatrix.printMatrix();
 
 
@@ -212,14 +294,25 @@ int main() {
     Matrix sortedCountingMatrix = copiedMatrix.countingSort();
         auto end3 = std::chrono::high_resolution_clock::now(); 
         auto duration3 = std::chrono::duration_cast<std::chrono::microseconds>(end3 - start3); 
-
-    // Вывод отсортированной копии матрицы на экран
     sortedCountingMatrix.printMatrix();
+
+
+
+    // Создание копии матрицы и сортировка копии с помощью Bubble Sort
+    std::cout << "\nSorted Matrix using Bubble Sort:\n";
+    copiedMatrix = originalMatrix.copyMatrix("Bubble Sort");
+        auto start4 = std::chrono::high_resolution_clock::now(); 
+    Matrix sortedBubbleMatrix = copiedMatrix.bubbleSort();
+        auto end4 = std::chrono::high_resolution_clock::now(); 
+        auto duration4 = std::chrono::duration_cast<std::chrono::microseconds>(end4 - start4); 
+    sortedBubbleMatrix.printMatrix();
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         std::cout << std::endl << std::endl;
-        std::cout << "Selection sort took " << duration1.count() << " microseconds\n";
-        std::cout << "LSD Radix sort took " << duration2.count() << " microseconds\n";
-        std::cout << "Counting sort took  " << duration3.count() << " microseconds\n";
+        std::cout << "Selection sort took ->  " << duration1.count() << " microseconds\n";
+        std::cout << "LSD Radix sort took ->  " << duration2.count() << " microseconds\n";
+        std::cout << "Counting sort took  ->  " << duration3.count() << " microseconds\n";
+        std::cout << "Bubble sort took    ->  " << duration4.count() << " microseconds\n";
 
     return 0;
 }

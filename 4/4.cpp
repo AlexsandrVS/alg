@@ -1,28 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <chrono>    // Для замера времени
+#include <chrono>
 
 class Matrix {
 public:
-    std::vector<std::vector<int>> data; // Вектор для хранения элементов матрицы
-    std::string name; // Имя матрицы
-    int rows; // Количество строк
-    int cols; // Количество столбцов
+    std::vector<std::vector<int>> data;
+    std::string name;
+    int rows;
+    int cols;
 
-    // Конструктор для создания матрицы с заданными размерами, именем и инициализацией нулями
     Matrix(int rows, int cols, std::string name) : rows(rows), cols(cols), name(name) {
         // Инициализация матрицы нулями
         data.resize(rows, std::vector<int>(cols, 0));
     }
 
-    // Конструктор копирования
     Matrix(const Matrix& other) : rows(other.rows), cols(other.cols), name(other.name) {
         // Копирование данных из другой матрицы
         data = other.data;
     }
 
-    // Метод для вывода матрицы
     void printMatrix() const {
         std::cout << "Matrix " << name << ":\n";
         if ((rows < 15)&&(cols < 15)) {
@@ -38,16 +35,14 @@ public:
         
     }
 
-    // Метод для изменения значений в матрице на случайные от -100 до 100
     void randomizeMatrix() {
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
-                data[i][j] = rand() % 201 - 100; // Генерация случайного числа от -100 до 100
+                data[i][j] = rand() % 201 - 100;
             }
         }
     }
 
-    // Метод для создания копии матрицы
     Matrix copyMatrix(std::string _name) const {
         // Создаем новый объект матрицы
         Matrix copiedMatrix(rows, cols, _name);
@@ -64,7 +59,6 @@ public:
 
     // Метод сортировки выбором
     Matrix selectionSort() const {
-        // Создаем копию матрицы
         Matrix sortedMatrix(*this);
 
         for (int j = 0; j < sortedMatrix.cols; ++j) {
@@ -103,7 +97,6 @@ public:
 
     // Метод сортировки LSD Radix
     Matrix lsdRadixSort() const {
-        // Создаем копию матрицы
         Matrix sortedMatrix(*this);
 
         // Для каждого столбца матрицы
@@ -138,7 +131,6 @@ public:
 
     // Метод сортировки подсчетом
     Matrix countingSort() const {
-        // Создаем копию матрицы
         Matrix sortedMatrix(*this);
 
         for (int j = 0; j < sortedMatrix.cols; ++j) {

@@ -1,93 +1,87 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unistd.h>
 
-// Простая реализация хеш-таблицы с использованием вектора и цепочек для разрешения коллизий
 class HashTable {
 private:
-    // Структура узла списка для цепочек
     struct Node {
-        std::string key; // Ключ
-        std::string value; // Значение
-        Node* next; // Указатель на следующий узел
-        Node(const std::string& k, const std::string& v) : key(k), value(v), next(nullptr) {} // Конструктор узла
+        std::string key;
+        std::string value;
+        long long int hash_value;
+        Node* next;
+        Node(const std::string& k, const std::string& v, long long int hash) : key(k), value(v), hash_value(hash), next(nullptr) {} // Конструктор узла
     };
 
-    std::vector<Node*> table; // Вектор, представляющий хеш-таблицу
-    int size; // Количество элементов в таблице
+    std::vector<Node*> table;
+    int size;
 
-    // Функция хеширования
     int hash(const std::string& key) {
-        int hashValue = 0;
-        for (char ch : key) {
-            hashValue = (hashValue * 31 + ch) % table.size(); // Простая функция хеширования
-        }
-        return hashValue;
+        return 0;
     }
 
 public:
-    // Конструктор, инициализирующий таблицу с начальным размером 20
     HashTable(int initialSize = 20) : size(0) {
-        table.resize(initialSize, nullptr); // Инициализация вектора указателей на узлы
+        table.resize(initialSize, nullptr);
     }
 
-    // Вставка элемента в хеш-таблицу
     void insert(const std::string& key, const std::string& value) {
-        int index = hash(key); // Получаем хеш-код ключа
-        Node* newNode = new Node(key, value); // Создаем новый узел
-        newNode->next = table[index]; // Устанавливаем новый узел в начало цепочки
-        table[index] = newNode;
-        size++; // Увеличиваем размер таблицы
+        long long int hashValue = 0;
+        Node* newNode = new Node(key, value, hashValue); // Создаем новый узел с хешем
+        newNode->next = table[newNode->hash_value]; // Устанавливаем новый узел в начало цепочки
+        table[newNode->hash_value] = newNode;
+        size++;
+        rehash();
     }
 
-    // Получение значения по ключу
+
     std::string get(const std::string& key) {
-        int index = hash(key); // Получаем хеш-код ключа
-        Node* current = table[index]; // Начинаем поиск с начала цепочки
-        while (current != nullptr) {
-            if (current->key == key) { // Если ключ найден, возвращаем значение
-                return current->value;
+        for (Node* head : table) {
+            Node* current = head;
+            while (current != nullptr) {
+                if (current->key == key) {
+                    return current->value;
+                }
+                current = current->next;
             }
-            current = current->next; // Переходим к следующему узлу в цепочке
         }
-        return "Key not found"; // Если ключ не найден, возвращаем сообщение об ошибке
+
+        if (std::to_string(table[std::stoi(key)]->hash_value) == key) { return table[std::stoi(key)]->value;}
+        
+        return "Key not found";
     }
 
-    // Реструктуризация таблицы (рехеширование)
+
     void rehash() {
-        std::vector<Node*> oldTable = table; // Сохраняем старую таблицу
-        table.clear(); // Очищаем текущую таблицу
-        table.resize(oldTable.size() * 2, nullptr); // Увеличиваем размер таблицы вдвое
-        size = 0; // Сбрасываем размер таблицы
+        std::cout << "Rehashing process started..." << std::endl;
+        std::vector<Node*> newTable(table.size() * 2, nullptr);
+        int i{};
+        i++;
 
-        // Перебираем все цепочки в старой таблице и переносим их в новую таблицу
-        for (Node* head : oldTable) {
-            Node* current = head; // Начинаем с начала цепочки
+        for (Node* head : table) {
+            Node* current = head;
             while (current != nullptr) {
-                insert(current->key, current->value); // Вставляем элемент из старой таблицы в новую
+                long long int hashValue{};
+                for (char ch : current->key) {
+                    hashValue = (hashValue * 31 + ch) % newTable.size();
+                }
+                Node* newNode = new Node(current->key, current->value, hashValue);
+                newNode->next = newTable[newNode->hash_value];
+                newTable[newNode->hash_value] = newNode;
+                std::cout << "№:" << i << "\t\thash:"<< current->hash_value <<"\t\tkey:\t" << current->key << "\t\tvalue:\t" << current->value << std::endl;
                 Node* temp = current;
-                current = current->next; // Переходим к следующему узлу в цепочке
-                delete temp; // Удаляем текущий узел, чтобы избежать утечек памяти
+                current = current->next;
+                delete temp; 
+                i++;
             }
         }
+        table = std::move(newTable);
+        std::cout << "Rehashing process completed." << std::endl;
     }
 
-    // Вывод содержимого таблицы
-    void display() {
-        for (int i = 0; i < table.size(); ++i) {
-            std::cout << i << ": "; // Выводим индекс
-            Node* current = table[i]; // Начинаем с начала цепочки
-            while (current != nullptr) {
-                std::cout << "[" << current->key << ", " << current->value << "] "; // Выводим пару ключ-значение
-                current = current->next; // Переходим к следующему узлу в цепочке
-            }
-            std::cout << std::endl;
-        }
-    }
 };
 
 int main() {
-    // Создаем хеш-таблицу и добавляем зарезервированные слова
     HashTable reservedWords;
     reservedWords.insert("if", "HELP for 'if' statement");
     reservedWords.insert("else", "HELP for 'else' statement");
@@ -102,8 +96,8 @@ int main() {
     reservedWords.insert("class", "HELP for defining classes");
     reservedWords.insert("public", "HELP for public access specifier");
     reservedWords.insert("private", "HELP for private access specifier");
-    reservedWords.insert("protected", "HELP for protected access specifier");
-    reservedWords.insert("namespace", "HELP for defining namespaces");
+    reservedWords.insert("cin", "HELP for protected access specifier");
+    reservedWords.insert("cout", "HELP for defining namespaces");
     reservedWords.insert("const", "HELP for defining constant values");
     reservedWords.insert("new", "HELP for dynamic memory allocation");
     reservedWords.insert("delete", "HELP for deallocating memory");
@@ -111,26 +105,28 @@ int main() {
     reservedWords.insert("typedef", "HELP for defining type aliases");
 
     std::string input;
+    std::string value;
     while (true) {
+        //std::cout << "\033[2J\033[1;1H";
         std::cout << "Enter a reserved word (or 'EXIT' to quit): ";
-        std::cin >> input;
+        std::getline(std::cin, input);
 
-        if (input == "EXIT") { // Если пользователь ввел 'EXIT', выходим из цикла
+        if (input == "EXIT" || input == "00") {
             break;
         }
 
-        std::string help = reservedWords.get(input); // Получаем справку для введенного слова
-        if (help == "Key not found") { // Если слово не найдено в таблице
+        std::string help = reservedWords.get(input);
+        
+        if (help == "Key not found") {
             std::cout << "Word not found in the reserved words list. Adding it to the table." << std::endl;
-            reservedWords.insert(input, "No help available for this word yet."); // Добавляем его в таблицу
-            reservedWords.rehash(); // Перестраиваем таблицу
+            std::cout << "Enter a help available word (value): \t";
+            std::getline(std::cin, value);
+            reservedWords.insert(input, (value.size() >= 1)?value:"No help available for this word yet.");
         } else {
-            std::cout << "Help: " << help << std::endl; // Выводим справку для слова
+            std::cout << help << std::endl;
         }
+        // getchar();
     }
-
-    std::cout << "Final state of the hash table:" << std::endl;
-    reservedWords.display(); // Выводим конечное состояние таблицы
-
     return 0;
+
 }

@@ -110,58 +110,45 @@ public:
         return sortedMatrix;
     }
 
-    // Метод сортировки LSD Radix
-    Matrix lsdRadixSort() const {
-        // Создаем копию текущей матрицы для сортировки
-        Matrix sortedMatrix(*this);
+    Matrix lsdRadixSort() const { // Метод сортировки LSD Radix
+        Matrix sortedMatrix(*this); // Создаем копию текущей матрицы для сортировки
 
-        // Реализуем сортировку LSD Radix Sort для каждого столбца
-        for (int j = 0; j < sortedMatrix.cols; ++j) {
-            // Подготавливаем корзины для каждой цифры
-            std::vector<std::vector<int>> buckets(10);
-
-            // Находим максимальное число разрядов в столбце
-            int maxDigits = 1;
+        for (int j = 0; j < sortedMatrix.cols; ++j)/* Реализуем сортировку LSD Radix Sort для каждого столбца */ {
+            std::vector<std::vector<int>> buckets(10);           // Подготавливаем корзины для каждой цифры
+            int maxDigits = 1;            // Находим максимальное число разрядов в столбце
             for (int i = 0; i < sortedMatrix.rows; ++i) {
                 int num = sortedMatrix.data[i][j];
                 int digits = 1 + static_cast<int>(log10(abs(num)));
                 maxDigits = std::max(maxDigits, digits);
             }
-
-            // Сортировка по каждому разряду
-            for (int digit = 0; digit < maxDigits; ++digit) {
-                // Распределение чисел по корзинам
-                for (int i = 0; i < sortedMatrix.rows; ++i) {
+            for (int digit = 0; digit < maxDigits; ++digit)/* Сортировка по каждому разряду*/ {
+                for (int i = 0; i < sortedMatrix.rows; ++i)/* Распределение чисел по корзинам*/ {
                     int num = sortedMatrix.data[i][j];
                     int digitValue = (abs(num) / static_cast<int>(pow(10, digit))) % 10;
                     buckets[digitValue].push_back(num);
                 }
-
                 // Сборка чисел обратно в матрицу
                 int row = 0;
-                if (j % 2 == 0) { // Четный столбец: сортировка по убыванию
+                if (j % 2 == 0) { /* Четный столбец: сортировка по убыванию*/ 
                     for (int k = 9; k >= 0; --k) {
                         for (int num : buckets[k]) {
                             sortedMatrix.data[row++][j] = num;
                         }
                     }
-                } else { // Нечетный столбец: сортировка по возрастанию
+                } else { /*Нечетный столбец: сортировка по возрастанию*/ 
                     for (int k = 0; k < 10; ++k) {
                         for (int num : buckets[k]) {
                             sortedMatrix.data[row++][j] = num;
                         }
                     }
                 }
-
                 // Очистка корзин перед следующей итерацией
                 for (auto& bucket : buckets) {
                     bucket.clear();
                 }
             }
         }
-
-        // Возвращаем отсортированную матрицу
-        return sortedMatrix;
+        return sortedMatrix; /* Возвращаем отсортированную матрицу */
     }
 
     // Метод сортировки четных и нечетных столбцов матрицы с использованием пузырьковой сортировки

@@ -1,34 +1,3 @@
-=== Start session - (Mon Mar 11 13:38:40 2024) ===
-[Mon Mar 11 13:38:40 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
-[Mon Mar 11 13:38:42 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
-[Mon Mar 11 13:38:44 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
-[Mon Mar 11 13:38:46 2024 ] Thread ID: 140737352709248      | Command: Invalid input                       | Status: Failure             
-[Mon Mar 11 13:38:48 2024 ] Thread ID: 140737352709248      | Command: Invalid input                       | Status: Failure             
-[Mon Mar 11 13:38:50 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:38:50 2024 ] Thread ID: 140737347847872      | Command: List reversed                       | Status: Success             
-[Mon Mar 11 13:38:51 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:38:53 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
-[Mon Mar 11 13:38:55 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
-[Mon Mar 11 13:38:56 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:39:02 2024 ] Thread ID: 140737337362112      | Command: List reversed                       | Status: Success             
-[Mon Mar 11 13:39:03 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:39:07 2024 ] Thread ID: 140737347847872      | Command: Removed from the end                | Status: Success             
-[Mon Mar 11 13:39:08 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:39:11 2024 ] Thread ID: 140737347847872      | Command: List reversed                       | Status: Success             
-[Mon Mar 11 13:39:12 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:39:13 2024 ] Thread ID: 140737337362112      | Command: List cleared                        | Status: Success             
-[Mon Mar 11 13:39:15 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
-[Mon Mar 11 13:39:23 2024 ] Thread ID: 140737347847872      | Command: Rm from end failed: List is empty   | Status: Failure             
-[Mon Mar 11 13:39:23 2024 ] Thread ID: 140737347847872      | Command: Rm from stp failed: List is empty   | Status: Failure             
-[Mon Mar 11 13:39:24 2024 ] Thread ID: 140737347847872      | Command: List cleared                        | Status: Success             
-[Mon Mar 11 13:39:31 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
-=== END session - (Mon Mar 11 13:39:31 2024) ===
-=== Start session - (Mon Mar 11 14:12:47 2024) ===
-[Mon Mar 11 14:12:47 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
-[Mon Mar 11 14:13:00 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
-[Mon Mar 11 14:13:14 2024 ] Thread ID: 140737347847872      | Command: List cleared                        | Status: Success             
-[Mon Mar 11 14:13:16 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
-=== END session - (Mon Mar 11 14:13:16 2024) ===
 === Start session - (Mon Mar 11 14:47:43 2024) ===
 [Mon Mar 11 14:47:43 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
 [Mon Mar 11 14:47:52 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
@@ -80,3 +49,49 @@
 [Mon Mar 11 17:36:21 2024 ] Thread ID: 140737347847872      | Command: Print list with stack               | Status: Success             
 [Mon Mar 11 17:36:22 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
 === END session - (Mon Mar 11 17:36:22 2024) ===
+=== SRT session - (Sat Mar 23 22:12:50 2024) ===
+[Sat Mar 23 22:12:50 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
+[Sat Mar 23 22:13:00 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
+[Sat Mar 23 22:13:03 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:13:05 2024 ] Thread ID: 140737347847872      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:13:06 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:13:10 2024 ] Thread ID: 140737347847872      | Command: List reversed                       | Status: Success             
+[Sat Mar 23 22:13:11 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:13:16 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
+[Sat Mar 23 22:13:19 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:13:20 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:13:23 2024 ] Thread ID: 140737337362112      | Command: List reversed                       | Status: Success             
+[Sat Mar 23 22:13:25 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:13:37 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:13:51 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:15:57 2024 ] Thread ID: 140737337362112      | Command: Print list with stack               | Status: Success             
+[Sat Mar 23 22:16:13 2024 ] Thread ID: 140737337362112      | Command: check a symmetric                   | Status: Success             
+[Sat Mar 23 22:16:22 2024 ] Thread ID: 140737347847872      | Command: List cleared                        | Status: Success             
+[Sat Mar 23 22:16:24 2024 ] Thread ID: 140737347847872      | Command: Added to the beginning              | Status: Success             
+[Sat Mar 23 22:16:25 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:16:27 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:16:28 2024 ] Thread ID: 140737337362112      | Command: Added to the end                    | Status: Success             
+[Sat Mar 23 22:16:29 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
+[Sat Mar 23 22:16:32 2024 ] Thread ID: 140737347847872      | Command: Сheck a symmetric                   | Status: Success             
+[Sat Mar 23 22:16:43 2024 ] Thread ID: 140737337362112      | Command: List cleared                        | Status: Success             
+[Sat Mar 23 22:16:46 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
+=== END session - (Sat Mar 23 22:16:46 2024) ===
+=== SRT session - (Sun Apr  7 21:08:45 2024) ===
+[Sun Apr  7 21:08:45 2024 ] Thread ID: 140737352709248      | Command: Program started                     | Status: Success             
+[Sun Apr  7 21:08:51 2024 ] Thread ID: 140737337362112      | Command: Added to the beginning              | Status: Success             
+[Sun Apr  7 21:08:56 2024 ] Thread ID: 140737347847872      | Command: Added to the end                    | Status: Success             
+[Sun Apr  7 21:08:57 2024 ] Thread ID: 140737347847872      | Command: Added to the end                    | Status: Success             
+[Sun Apr  7 21:08:58 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sun Apr  7 21:09:03 2024 ] Thread ID: 140737347847872      | Command: check a symmetric                   | Status: Success             
+[Sun Apr  7 21:09:14 2024 ] Thread ID: 140737337362112      | Command: List reversed                       | Status: Success             
+[Sun Apr  7 21:09:15 2024 ] Thread ID: 140737347847872      | Command: check a symmetric                   | Status: Success             
+[Sun Apr  7 21:09:22 2024 ] Thread ID: 140737337362112      | Command: Displayed list                      | Status: Success             
+[Sun Apr  7 21:09:30 2024 ] Thread ID: 140737347847872      | Command: Added to the end                    | Status: Success             
+[Sun Apr  7 21:09:31 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sun Apr  7 21:09:39 2024 ] Thread ID: 140737337362112      | Command: Print list with stack               | Status: Success             
+[Sun Apr  7 21:09:48 2024 ] Thread ID: 140737337362112      | Command: check a symmetric                   | Status: Success             
+[Sun Apr  7 21:09:52 2024 ] Thread ID: 140737347847872      | Command: Added to the end                    | Status: Success             
+[Sun Apr  7 21:09:53 2024 ] Thread ID: 140737347847872      | Command: Displayed list                      | Status: Success             
+[Sun Apr  7 21:09:56 2024 ] Thread ID: 140737337362112      | Command: check a symmetric                   | Status: Success             
+[Sun Apr  7 21:10:33 2024 ] Thread ID: 140737352709248      | Command: Program ended                       | Status: Success             
+=== END session - (Sun Apr  7 21:10:33 2024) ===
